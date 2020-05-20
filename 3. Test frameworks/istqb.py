@@ -1,21 +1,24 @@
 import pytest
 from selenium import webdriver
+import time
+import random
 
 link = "http://istqb-training.ru/Exam/Start?language=ru&isNative=true"
 
 
 @pytest.fixture
 def browser():
-    print("\nstart browser for test..")
     browser = webdriver.Chrome()
     return browser
 
 
 class TestMainPage1():
-    # вызываем фикстуру в тесте, передав ее как параметр
     def test_guest_should_see_login_link(self, browser):
         browser.get(link)
         for i in range(40):
-            browser.find_element_by_css_selector("[name='AnswerRadio']").click()
-            imp
-            browser.find_element_by_css_selector("#nextQuestButton").click()
+            random.choice(browser.find_elements_by_name('AnswerRadio')).click()
+#            time.sleep(0.5)
+            browser.find_element_by_id("nextQuestButton").click()
+#            time.sleep(0.5)
+        browser.find_element_by_css_selector('#endExam').click()
+        time.sleep(10)
